@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense &amp; Budget Visualizer</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER ROW: title + dark mode toggle -->
+    <div class="app-header">
+      <h1 class="app-title">Expense &amp; Budget Visualizer</h1>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+        <span class="theme-icon" id="theme-icon">🌙</span>
+        <span class="theme-label" id="theme-label">Dark Mode</span>
+      </button>
+    </div>
+
+    <!-- BALANCE CARD -->
+    <div class="card balance-card">
+      <p class="balance-label">TOTAL BALANCE</p>
+      <p class="balance-amount" id="total-balance">$0.00</p>
+    </div>
+
+    <!-- ADD TRANSACTION FORM -->
+    <div class="card form-card">
+      <h2 class="section-title">Add Transaction</h2>
+
+      <form id="transaction-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="item-name">Item Name</label>
+          <input
+            class="form-input"
+            type="text"
+            id="item-name"
+            maxlength="60"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="item-amount">Amount</label>
+          <input
+            class="form-input"
+            type="text"
+            id="item-amount"
+            placeholder=""
+            inputmode="numeric"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="item-category">Category</label>
+          <select class="form-input form-select" id="item-category" required>
+            <option value="" disabled selected>Select Category</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Fun">Fun</option>
+          </select>
+        </div>
+
+        <button class="btn-add" type="submit">Add Transaction</button>
+      </form>
+    </div>
+
+    <!-- BOTTOM ROW: TRANSACTIONS + CHART -->
+    <div class="bottom-row">
+
+      <!-- TRANSACTIONS LIST -->
+      <div class="card transactions-card">
+        <div class="transactions-header">
+          <h2 class="section-title">Transactions</h2>
+          <!-- SORT CONTROLS -->
+          <div class="sort-controls">
+            <label class="sort-label" for="sort-select">Sort by</label>
+            <select class="form-input form-select sort-select" id="sort-select" aria-label="Sort transactions">
+              <option value="date-desc">Date (Newest)</option>
+              <option value="date-asc">Date (Oldest)</option>
+              <option value="amount-desc">Amount (High → Low)</option>
+              <option value="amount-asc">Amount (Low → High)</option>
+              <option value="category-asc">Category (A–Z)</option>
+              <option value="name-asc">Name (A–Z)</option>
+            </select>
+          </div>
+        </div>
+
+        <ul class="transaction-list" id="transaction-list"></ul>
+        <p class="empty-msg" id="empty-msg">No transactions yet.</p>
+      </div>
+
+      <!-- PIE CHART -->
+      <div class="card chart-card">
+        <h2 class="section-title">Spending by Category</h2>
+        <div class="chart-wrap">
+          <canvas id="pie-chart" width="260" height="260" aria-label="Spending by category pie chart" role="img"></canvas>
+        </div>
+        <ul class="chart-legend" id="chart-legend"></ul>
+      </div>
+
+    </div>
+
+    <!-- MONTHLY SUMMARY -->
+    <div class="card summary-card">
+      <h2 class="section-title">Monthly Summary</h2>
+      <div class="summary-table-wrap">
+        <table class="summary-table" id="summary-table">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Transactions</th>
+              <th>Total Spent</th>
+              <th>Top Category</th>
+            </tr>
+          </thead>
+          <tbody id="summary-body">
+            <!-- injected by JS -->
+          </tbody>
+        </table>
+        <p class="empty-msg" id="summary-empty">No data yet. Add transactions to see your monthly summary.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/chart.js"></script>
+</body>
+</html>
